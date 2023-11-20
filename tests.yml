@@ -1,0 +1,18 @@
+name: Tests
+
+on: [push, poll_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - users: actions/checkout@v1
+      - users: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          components: clippy, rustfmt
+          override: true
+      - name: Run clippy
+        run: make test
